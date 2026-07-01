@@ -13,7 +13,9 @@ while True:
                 print(item)
         case 'edit':
             number = int(input("Which task would you like to edit? (Enter the number.): ")) 
-            existing_todo = todos[number]
+            number = number - 1
+            new_todo = input("Enter new todo: ")
+            todos[number] = new_todo
         case 'exit':
             break
 
