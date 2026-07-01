@@ -6,7 +6,7 @@ while True:
 
     match user_action:
         case 'add':
-            todo = input("Enter a task to add: ") + "/n"
+            todo = input("Enter a task to add: ") + "\n"
             todos.append(todo)
             file = open('todos.txt', 'w')
             file.writelines(todos)
