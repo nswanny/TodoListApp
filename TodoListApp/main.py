@@ -8,19 +8,32 @@ while True:
 
             file = open('todos.txt', 'r')
             todos = file.readlines()
+            file.close()
 
             todos.append(todo)
-            
+
             file = open('todos.txt', 'w')
             file.writelines(todos)
+            file.close()
         case 'show':
+            file = open('todos.txt', 'r')
+            todos = file.readlines()
+            file.close()
             for index, item in enumerate(todos):
                 print(f"{index + 1}. {item}")
         case 'edit':
+            file = open('todos.txt', 'r')
+            todos = file.readlines()
+            file.close()
+
             number = int(input("Which task would you like to edit? (Enter the number.): ")) 
             number = number - 1
             new_todo = input("Enter new todo: ")
-            todos[number] = new_todo
+
+            todos[number] = new_todo + '\n'
+            file = open('todos.txt', 'w')
+            file.writelines(todos)
+            file.close()
         case 'complete':
             number = int(input("Number of the todo that is complete: "))
             todos.pop(number - 1)
