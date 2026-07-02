@@ -19,7 +19,10 @@ while True:
             file = open('todos.txt', 'r')
             todos = file.readlines()
             file.close()
-            for index, item in enumerate(todos):
+
+            new_todos = [item.strip('\n') for item in todos]
+
+            for index, item in enumerate(new_todos):
                 print(f"{index + 1}. {item}")
         case 'edit':
             file = open('todos.txt', 'r')
