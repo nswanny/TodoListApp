@@ -14,6 +14,7 @@ while True:
             file.writelines(todos)
 
     elif 'show' in user_action:
+        
         with open('todos.txt', 'r') as file:
             todos = file.readlines()
 
