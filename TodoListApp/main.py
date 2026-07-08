@@ -37,6 +37,7 @@ while True:
                 file.writelines(todos)
         except ValueError:
             print("That is not a valid command.")
+            continue
 
     elif user_action.startswith('complete'):
         number = int(user_action[9:])
