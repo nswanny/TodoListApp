@@ -56,7 +56,7 @@ while True:
                 file.writelines(todos)
             
             print(f"{todo_to_remove} was removed from the list")
-        except IndexError:
+        except:
             print("There is no item with that number.")
             continue
 
