@@ -15,12 +15,14 @@ complete_button = sg.Button("Complete")
 exit_button = sg.Button("Exit")
 
 window = sg.Window('To-do List', 
-                   layout=[[clock],
+                   layout=[
+                           [clock],
                            [label],
                            [input_box, add_button],
                            [list_box, edit_button, complete_button],
-                           [exit_button]], 
-                   font=("Helvecta", 20))
+                           [exit_button]
+                        ], 
+                        font=("Helvecta", 20))
 
 while True:
     event, values = window.read(timeout=200)
