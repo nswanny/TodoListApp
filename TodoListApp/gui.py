@@ -1,6 +1,11 @@
 import functions
 import FreeSimpleGUI as sg
 import time
+import os
+
+if not os.path.exists("todos.txt"):
+    with open("todos.txt", "w") as file:
+        pass
 
 sg.theme("DarkAmber")
 
@@ -33,7 +38,7 @@ while True:
 
     if values is not None:
         window["clock"].update(value=time.strftime("%b %d, %Y %H:%M:%S"))
-        
+
         match event:
             case "Add":
                     todos = functions.get_todos()
