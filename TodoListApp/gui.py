@@ -26,43 +26,54 @@ window = sg.Window('To-do List',
 
 while True:
     event, values = window.read(timeout=200)
-    window["clock"].update(value=time.strftime("%b %d, %Y %H:%M:%S"))
-    match event:
-        case "Add":
-            todos = functions.get_todos()
-            new_todo = values['todo'] + "\n"
-            todos.append(new_todo)
-            functions.write_todos(todos)
-            window['todos'].update(values=todos)
+
+    # To prevent crashing when hitting 'x' on window
+    if event in (None, 'exit', sg.WIN_CLOSED):
+        break
+
+    if values is not None:
+        window["clock"].update(value=time.strftime("%b %d, %Y %H:%M:%S"))
         
-        case "Edit":
-            try:
-                todo_to_edit = values['todos'][0]
-                new_todo = values['todo']
+        match event:
+            case "Add":
+                    todos = functions.get_todos()
+                    if values['todo'] == "":
+                        sg.popup("Please type a todo before clicking Add.", font=("Helvetica", 10))
+                        window['todo'].update(value='')
+                    else:
+                        new_todo = values['todo'] + "\n"
+                        todos.append(new_todo)
+                        functions.write_todos(todos)
+                        window['todos'].update(values=todos)
+            
+            case "Edit":
+                try:
+                    todo_to_edit = values['todos'][0]
+                    new_todo = values['todo']
 
-                todos = functions.get_todos()
-                index = todos.index(todo_to_edit)
-                todos[index] = new_todo
-                functions.write_todos(todos)
-                window['todos'].update(values=todos)
-            except IndexError:
-                sg.popup("Please select an item first", font=("Helvetica", 20))
+                    todos = functions.get_todos()
+                    index = todos.index(todo_to_edit)
+                    todos[index] = new_todo
+                    functions.write_todos(todos)
+                    window['todos'].update(values=todos)
+                except IndexError:
+                    sg.popup("Please select an item first", font=("Helvetica", 20))
 
-        case "Complete":
-            try:
-                todo_to_complete = values['todos'][0]
-                todos = functions.get_todos()
-                todos.remove(todo_to_complete)
-                functions.write_todos(todos)
-                window['todos'].update(values=todos)
-                window['todo'].update(value='')
-            except IndexError:
-                sg.popup("Please select an item first", font=("Helvetica", 20))
+            case "Complete":
+                try:
+                    todo_to_complete = values['todos'][0]
+                    todos = functions.get_todos()
+                    todos.remove(todo_to_complete)
+                    functions.write_todos(todos)
+                    window['todos'].update(values=todos)
+                    window['todo'].update(value='')
+                except IndexError:
+                    sg.popup("Please select an item first", font=("Helvetica", 20))
 
-        case "Exit":
-            break       
-        case sg.WIN_CLOSED:
-            break
+            case "Exit":
+                break       
+            case sg.WIN_CLOSED:
+                break
 
 
 
